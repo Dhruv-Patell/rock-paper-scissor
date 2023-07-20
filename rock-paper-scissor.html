@@ -5,79 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOM - Rock Paper Scissor</title>
+    <script src="rock-paper-scissor.js"></script>
+    <link rel="stylesheet" href="rock-paper-scissor.css">
 </head>
 <body>
-    <p>Rock Paper Scissors</p>
-    <button onclick="
-        pickMove('Rock');
-    ">Rock</button>
-    <button onclick="
-        pickMove('Paper');
-    ">Paper</button>
-    <button onclick="
-        pickMove('Scissor');
-        ">Scissors</button>
-    <p class="js-result"></p>
+    <p class="title">Rock Paper Scissors</p>
+    <button class= "move-button" onclick="pickMove('rock');">
+        <img src="images/rock-emoji.png" class="pic-emoji">
+    </button>
+    <button class= "move-button" onclick="pickMove('paper');">
+        <img src="images/paper-emoji.png" class="pic-emoji">
+    </button>
+    <button class= "move-button" onclick="pickMove('scissors');">
+        <img src="images/scissors-emoji.png" class="pic-emoji">
+    </button>
+    <p class="js-result result"></p>
     <p class="js-move-chosen"></p>
-    <p class="js-scores"></p>
-    <button onclick="
-        resetValues();
-        ">Reset</button>
-    
-    <script>
-        console.log('hello', JSON.parse(localStorage.getItem('score')));
-        
-        let score = JSON.parse(localStorage.getItem('score')) || {
-            myScore: 0,
-            compScore: 0,
-            ties: 0
-        };
-        updateScoreElement();
-
-        function resetValues() {
-            score.myScore = 0; 
-            score.compScore = 0;
-            score.ties = 0;
-            updateScoreElement();
-            localStorage.removeItem('score');
-            console.log('Scores Reset: Lets Play Again!');
-            console.log(`Results are: Player: ${score.myScore}, Computer: ${score.compScore}`);
-        }
-
-        function updateScoreElement() {
-            document.querySelector('.js-scores').innerHTML = `Results are: Player: ${score.myScore}, Computer: ${score.compScore}, Tie: ${score.ties}`;
-        }
-
-        function updateResult() {
-            document.querySelector('.js-result').innerHTML = `You Results are: Player: ${score.myScore}, Computer: ${score.compScore}, Tie: ${score.ties}`;
-        }
-        
-        function pickMove(myMove) {
-            let randomNumber = Math.random();
-            randomNumber *= 3; 
-            compMove = (randomNumber < 1 ? 'Rock': (randomNumber < 2 ? 'Paper' : 'Scissor'));
-            let resultElement = document.querySelector('.js-result');
-            document.querySelector('.js-move-chosen').innerHTML = `You: ${myMove}, Computer: ${compMove}`;
-
-            if (compMove === myMove) {
-                score.ties++;
-                resultElement.innerHTML = `Tie`;
-            }
-            else if ((compMove === 'Rock' && myMove === 'Paper') ||
-                (compMove === 'Paper' && myMove === 'Scissor') ||
-                (compMove === 'Scissor' && myMove === 'Rock')) {
-                resultElement.innerHTML = `You Win`;
-                score.myScore++;
-            }
-            else if ((compMove === 'Rock' && myMove === 'Scissor') ||
-                (compMove === 'Paper' && myMove === 'Rock') ||
-                (compMove === 'Scissor' && myMove === 'Paper')) {
-                resultElement.innerHTML = `You Lose`;
-                score.compScore++;
-            }
-            localStorage.setItem('score', JSON.stringify(score));
-            updateScoreElement();
-        }
-    </script>
+    <p class="js-scores scores"></p>
+    <button class="reset-button" onclick="resetValues();">
+        Reset
+    </button>
+    <p class="creator">Made by Dhruv</p>
 </body>
 </html>
