@@ -10,52 +10,69 @@
     <p>Rock Paper Scissors</p>
     <button onclick="
         let randomNumber = Math.random();
-        if (randomNumber >= 0 && randomNumber < 1/3) {
-            console.log('You and computer both selected Rock. - Tie');
-            console.log(finalResultForMe, finalResultForComputer);
-        }
-        else if (randomNumber >= 1/3 && randomNumber < 2/3) {
-            console.log('You selected Rock and computer selected scissor. - Win');
-            console.log(++finalResultForMe, finalResultForComputer);
-        }
-        else {
-            console.log('You selected Rock and computer selected Paper. - Loss');
-            console.log(finalResultForMe, ++finalResultForComputer);
-        }
+        pickMove(randomNumber, 'Rock');
     ">Rock</button>
     <button onclick="
         randomNumber = Math.random();
-        if (randomNumber >= 0 && randomNumber < 1/3) {
-            console.log('You selected Paper and computer selected Rock. - Win');
-            console.log(++finalResultForMe, finalResultForComputer);
-        }
-        else if (randomNumber >= 1/3 && randomNumber < 2/3) {
-            console.log('You selected Paper and computer selected scissor. - Loss');
-            console.log(finalResultForMe, ++finalResultForComputer);
-        }
-        else {
-            console.log('You and computer both selected Paper. - Tie');
-            console.log(finalResultForMe, finalResultForComputer);
-        }
+        pickMove(randomNumber, 'Paper');
     ">Paper</button>
     <button onclick="
         randomNumber = Math.random();
-        if (randomNumber >= 0 && randomNumber < 1/3) {
-            console.log('You selected Scissor and computer selected Rock. - Loss');
-            console.log(finalResultForMe, ++finalResultForComputer);
-        }
-        else if (randomNumber >= 1/3 && randomNumber < 2/3) {
-            console.log('You and computer both selected Scissor. - Tie');
-            console.log(finalResultForMe, finalResultForComputer);
-        }
-        else {
-            console.log('You selected Scissor and computer selected Paper. - Win');
-            console.log(++finalResultForMe, finalResultForComputer);
-        }
+        pickMove(randomNumber, 'Scissor');
         ">Scissors</button>
+    <button onclick="
+        resetValues();
+        ">Reset</button>
     
     <script>
         let result = 0, finalResultForMe = 0, finalResultForComputer = 0;
+        
+        function resetValues() {
+            finalResultForMe = 0;
+            finalResultForComputer = 0;
+            console.log('Lets Play Again!');
+            console.log(`Results are: Player: ${finalResultForMe}, Computer: ${finalResultForComputer}`);
+        }
+        function pickMove(randomNumber, myMove) {
+            randomNumber *= 3;
+            compMove = (randomNumber < 1 ? 'Rock': (randomNumber < 2 ? 'Paper' : 'Scissor'));
+            
+            if (compMove===myMove) {
+                console.log(`You both selected ${compMove}.`);
+                console.log('Tie');
+            }
+            else if (compMove === 'Rock' && myMove === 'Paper') {
+                console.log(`You selected ${myMove} and computer selected ${compMove}.`);
+                console.log('You Win!');
+                finalResultForMe++;
+            }
+            else if (compMove==='Rock' && myMove==='Scissor') {
+                console.log(`You selected ${myMove} and computer selected ${compMove}.`);
+                console.log('You Lose!');
+                finalResultForComputer++;
+            }
+            else if (compMove==='Paper' && myMove==='Rock') {
+                console.log(`You selected ${myMove} and computer selected ${compMove}.`);
+                console.log('You Lose!');
+                finalResultForComputer++;
+            }
+            else if (compMove==='Paper' && myMove==='Scissor') {
+                console.log(`You selected ${myMove} and computer selected ${compMove}.`);
+                console.log('You Win!');
+                finalResultForMe++;
+            }
+            else if (compMove==='Scissor' && myMove==='Rock') {
+                console.log(`You selected ${myMove} and computer selected ${compMove}.`);
+                console.log('You Win!');
+                finalResultForMe++;
+            }
+            else if (compMove==='Scissor' && myMove==='Paper') {
+                console.log(`You selected ${myMove} and computer selected ${compMove}.`);
+                console.log('You Lose!');
+                finalResultForComputer++;
+            }
+            console.log(`Results are: Player: ${finalResultForMe}, Computer: ${finalResultForComputer}`);
+        }
     </script>
 </body>
 </html>
