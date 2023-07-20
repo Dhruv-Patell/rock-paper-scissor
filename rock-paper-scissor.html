@@ -26,12 +26,15 @@
     
     <script>
         let result = 0, finalResultForMe = 0, finalResultForComputer = 0;
-        
+        let score = {
+            myScore: 0,
+            compScore: 0
+        };
         function resetValues() {
-            finalResultForMe = 0;
-            finalResultForComputer = 0;
-            console.log('Lets Play Again!');
-            console.log(`Results are: Player: ${finalResultForMe}, Computer: ${finalResultForComputer}`);
+            score.myScore = 0;
+            score.compScore = 0;
+            console.log('Scores Reset: Lets Play Again!');
+            console.log(`Results are: Player: ${score.myScore}, Computer: ${score.compScore}`);
         }
         function pickMove(randomNumber, myMove) {
             randomNumber *= 3;
@@ -44,34 +47,34 @@
             else if (compMove === 'Rock' && myMove === 'Paper') {
                 console.log(`You selected ${myMove} and computer selected ${compMove}.`);
                 console.log('You Win!');
-                finalResultForMe++;
+                score.myScore++;
             }
             else if (compMove==='Rock' && myMove==='Scissor') {
                 console.log(`You selected ${myMove} and computer selected ${compMove}.`);
                 console.log('You Lose!');
-                finalResultForComputer++;
+                score.compScore++;
             }
             else if (compMove==='Paper' && myMove==='Rock') {
                 console.log(`You selected ${myMove} and computer selected ${compMove}.`);
                 console.log('You Lose!');
-                finalResultForComputer++;
+                score.compScore++;
             }
             else if (compMove==='Paper' && myMove==='Scissor') {
                 console.log(`You selected ${myMove} and computer selected ${compMove}.`);
                 console.log('You Win!');
-                finalResultForMe++;
+                score.myScore++;
             }
             else if (compMove==='Scissor' && myMove==='Rock') {
                 console.log(`You selected ${myMove} and computer selected ${compMove}.`);
                 console.log('You Win!');
-                finalResultForMe++;
+                score.myScore++;
             }
             else if (compMove==='Scissor' && myMove==='Paper') {
                 console.log(`You selected ${myMove} and computer selected ${compMove}.`);
                 console.log('You Lose!');
-                finalResultForComputer++;
+                score.compScore++;
             }
-            console.log(`Results are: Player: ${finalResultForMe}, Computer: ${finalResultForComputer}`);
+            console.log(`Results are: Player: ${score.myScore}, Computer: ${score.compScore}`);
         }
     </script>
 </body>
