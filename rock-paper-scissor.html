@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock Paper Scissor</title>
+    <title>DOM - Rock Paper Scissor</title>
 </head>
 <body>
     <p>Rock Paper Scissors</p>
@@ -17,62 +17,66 @@
     <button onclick="
         pickMove('Scissor');
         ">Scissors</button>
+    <p class="js-result"></p>
+    <p class="js-move-chosen"></p>
+    <p class="js-scores"></p>
     <button onclick="
         resetValues();
         ">Reset</button>
     
     <script>
         console.log('hello', JSON.parse(localStorage.getItem('score')));
+        
         let score = JSON.parse(localStorage.getItem('score')) || {
             myScore: 0,
             compScore: 0,
             ties: 0
         };
+        updateScoreElement();
 
         function resetValues() {
             score.myScore = 0; 
             score.compScore = 0;
             score.ties = 0;
+            updateScoreElement();
             localStorage.removeItem('score');
             console.log('Scores Reset: Lets Play Again!');
             console.log(`Results are: Player: ${score.myScore}, Computer: ${score.compScore}`);
         }
 
+        function updateScoreElement() {
+            document.querySelector('.js-scores').innerHTML = `Results are: Player: ${score.myScore}, Computer: ${score.compScore}, Tie: ${score.ties}`;
+        }
+
+        function updateResult() {
+            document.querySelector('.js-result').innerHTML = `You Results are: Player: ${score.myScore}, Computer: ${score.compScore}, Tie: ${score.ties}`;
+        }
+        
         function pickMove(myMove) {
             let randomNumber = Math.random();
             randomNumber *= 3; 
             compMove = (randomNumber < 1 ? 'Rock': (randomNumber < 2 ? 'Paper' : 'Scissor'));
-            
+            let resultElement = document.querySelector('.js-result');
+            document.querySelector('.js-move-chosen').innerHTML = `You: ${myMove}, Computer: ${compMove}`;
+
             if (compMove === myMove) {
-                console.log(`You both selected ${compMove}. Tie`);
                 score.ties++;
+                resultElement.innerHTML = `Tie`;
             }
-            else if (compMove === 'Rock' && myMove === 'Paper') {
-                console.log(`You selected ${myMove} and computer selected ${compMove}. You Win!`);
+            else if ((compMove === 'Rock' && myMove === 'Paper') ||
+                (compMove === 'Paper' && myMove === 'Scissor') ||
+                (compMove === 'Scissor' && myMove === 'Rock')) {
+                resultElement.innerHTML = `You Win`;
                 score.myScore++;
             }
-            else if (compMove === 'Rock' && myMove === 'Scissor') {
-                console.log(`You selected ${myMove} and computer selected ${compMove}. You Lose!`);
+            else if ((compMove === 'Rock' && myMove === 'Scissor') ||
+                (compMove === 'Paper' && myMove === 'Rock') ||
+                (compMove === 'Scissor' && myMove === 'Paper')) {
+                resultElement.innerHTML = `You Lose`;
                 score.compScore++;
             }
-            else if (compMove === 'Paper' && myMove === 'Rock') {
-                console.log(`You selected ${myMove} and computer selected ${compMove}. You Lose!`);
-                score.compScore++;
-            }
-            else if (compMove === 'Paper' && myMove === 'Scissor') {
-                console.log(`You selected ${myMove} and computer selected ${compMove}. You Win!`);
-                score.myScore++;
-            }
-            else if (compMove === 'Scissor' && myMove === 'Rock') {
-                console.log(`You selected ${myMove} and computer selected ${compMove}. You Win!`);
-                score.myScore++;
-            }
-            else if (compMove === 'Scissor' && myMove === 'Paper') {
-                console.log(`You selected ${myMove} and computer selected ${compMove}. You Lose!`);
-                score.compScore++;
-            }
-            console.log(`Results are: Player: ${score.myScore}, Computer: ${score.compScore}, Tie: ${score.ties}`);
             localStorage.setItem('score', JSON.stringify(score));
+            updateScoreElement();
         }
     </script>
 </body>
