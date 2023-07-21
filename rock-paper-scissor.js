@@ -9,6 +9,8 @@ function resetValues() {
     score.compScore = 0;
     score.ties = 0;
     updateScoreElement();
+    document.querySelector('.js-move-chosen').innerHTML = `Let's start again`;
+    document.querySelector('.js-result').innerHTML = `Reset`;
     localStorage.removeItem('score');
 }
 
