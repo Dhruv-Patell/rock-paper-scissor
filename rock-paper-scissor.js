@@ -1,3 +1,6 @@
+let isAutoPlaying = false;
+let intervalId;
+
 let score = JSON.parse(localStorage.getItem('score')) || {
     myScore: 0,
     compScore: 0,
@@ -12,6 +15,22 @@ function resetValues() {
     document.querySelector('.js-move-chosen').innerHTML = `Let's start again`;
     document.querySelector('.js-result').innerHTML = `Reset`;
     localStorage.removeItem('score');
+}
+
+function autoPlay() {
+    if (!isAutoPlaying) {
+        intervalId = setInterval(function() {
+            let ranDomMove = Math.random();
+            ranDomMove *= 3;
+            const myMove = (ranDomMove < 1 ? 'rock': (ranDomMove < 2 ? 'paper' : 'scissors')); 
+            pickMove(myMove);
+        }, 1000);
+        isAutoPlaying = true;
+    }
+    else {
+        clearInterval(intervalId);
+        isAutoPlaying = false;
+    }
 }
 
 function updateScoreElement() {

@@ -33,7 +33,7 @@ body {
     text-shadow: 5px -5px 2px white;
 }
 
-.reset-button {
+.reset-button, .autoplay-button {
     background-color: Violet;
     border: none;
     font-size: 15px;
