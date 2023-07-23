@@ -15,7 +15,7 @@
 * Game started:
 <br />    
 
-![Starting Game](screenshots/Screenshot-1.png)
+![Starting Game](screenshots\Screenshot-1.png)
 <br />    
 
 * Playing Game:
